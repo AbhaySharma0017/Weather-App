@@ -1,26 +1,14 @@
-import requests
+from flask import Flask, send_from_directory
 
-API_KEY = "c7ec4c9f534bb59abe01065ec23da2be"  # replace with your actual key
-BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
+app = Flask(__name__)
 
-city = input("Enter city name: ")
+@app.route('/')
+def serve_index():
+    return send_from_directory('.', 'index.html')
 
-params = {
-    "q": city,
-    "appid": API_KEY,
-    "units": "metric"
-}
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('.', path)
 
-response = requests.get(BASE_URL, params=params)
-data = response.json()
-
-if response.status_code == 200:
-    print(f"Weather in {city}:")
-    print(f"Temperature: {data['main']['temp']}°C")
-    print(f"Condition: {data['weather'][0]['description']}")
-    print(f"Humidity: {data['main']['humidity']}%")
-else:
-    print("City not found or API error")
-
-if __name__ == "__main__":
-    Weather.run(host="0.0.0.0", port=8080)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
