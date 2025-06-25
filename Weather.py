@@ -23,4 +23,4 @@ else:
     print("City not found or API error")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    Weather.run(host="0.0.0.0", port=8080)
