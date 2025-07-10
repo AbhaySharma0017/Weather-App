@@ -35,6 +35,7 @@ jobs:
     
     - name: Run Docker Container
       run: |
+        docker rm -f weather-app-container || true
         docker run -d -p 8080:8080 --name weather-app-container ${{ secrets.DOCKER_USERNAME }}/devops:${{ github.run_number }}
 
         # docker run -d -p 8080:8080 --name weather-app-container ${{ secrets.DOCKER_USERNAME }}/devops:${{ github.run_number }}
